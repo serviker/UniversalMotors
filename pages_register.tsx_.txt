@@ -1,0 +1,45 @@
+pages/register.tsx
+
+import { useState } from "react";
+
+export default function Register() {
+    const [formData, setFormData] = useState({
+        firstName: "",
+        lastName: "",
+        middleName: "",
+        email: "",
+        password: "",
+        phone: "",
+        address: "",
+        role: "user",
+    });
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+    };
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        const response = await fetch("/api/auth/register", {
+            method: "POST",
+            body: JSON.stringify(formData),
+            headers: { "Content-Type": "application/json" },
+        });
+
+        if (response.ok) alert("User registered successfully");
+        else alert("Registration failed");
+    };
+
+    return (
+        <form onSubmit={handleSubmit}>
+            <input name="firstName" placeholder="Имя" onChange={handleChange} />
+            <input name="lastName" placeholder="Фамилия" onChange={handleChange} />
+            <input name="middleName" placeholder="Отчество" onChange={handleChange} />
+            <input name="email" type="email" placeholder="Email" onChange={handleChange} />
+            <input name="password" type="password" placeholder="Пароль" onChange={handleChange} />
+            <input name="phone" placeholder="Телефон" onChange={handleChange} />
+            <input name="address" placeholder="Адрес" onChange={handleChange} />
+            <button type="submit">Register</button>
+        </form>
+    );
+}

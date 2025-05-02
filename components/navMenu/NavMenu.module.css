@@ -1,0 +1,33 @@
+
+.navMenu {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 1fr;
+    gap: 12px;
+    height: 40px;
+    background-color: #2081DE;
+    padding: 0 12px;
+    overflow-x: hidden;
+    white-space: nowrap;
+    box-sizing: border-box;
+    align-items: center;
+    justify-items: center;
+}
+
+.link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 14px;
+    text-decoration: none;
+    height: 100%;
+    text-align: center;
+    transition: background-color 0.3s ease;
+    min-width: max-content;
+    padding: 0 8px;
+}
+
+.link:hover {
+    background-color: #ED4233;
+}

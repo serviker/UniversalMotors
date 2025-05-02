@@ -1,0 +1,150 @@
+.bottomMenu {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-areas:
+        "logo search contact cart";
+    gap: 40px;
+    align-items: start;
+    padding: 20px 40px;
+    background-color: #ffffff;
+}
+
+/* Секции по grid-areas */
+.logoSection {
+    grid-area: logo;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.centerSection {
+    grid-area: search;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 465px;
+    gap: 20px;
+}
+
+.contact {
+    grid-area: contact;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-end;
+
+}
+
+
+.cartSection {
+    grid-area: cart;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
+}
+
+/* Социальные сети */
+.social {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+/* Поиск */
+.search {
+    display: flex;
+    align-items: center;
+    background-color: #F0F0F0;
+    border-radius: 10px;
+    height: 40px;
+    padding: 5px 15px;
+}
+
+.search input {
+    border: none;
+    outline: none;
+    padding: 5px 10px;
+    border-radius: 10px;
+    background-color: #F0F0F0;
+    font-size: 14px;
+    margin-left: 5px;
+    width: 100%;
+}
+
+.searchImage {
+    border: none;
+    background: none;
+}
+
+.cartDetails {
+    display: flex;
+    gap: 10px;
+}
+
+.shopCart {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+}
+
+.shopCart:hover, .cartCount:hover {
+    color: #ED4233;
+}
+
+.cartCount, .cartPrice {
+    color: black;
+}
+
+.cartButton {
+    padding: 10px 20px;
+    background-color: #2081DE;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.span {
+    color: #2081DE;
+    font-size: 16px;
+    line-height: 22px;
+    text-decoration: underline dotted;
+    text-underline-offset: 3px;
+    text-decoration-thickness: 2px;
+    cursor: pointer;
+}
+
+.spanNumber {
+    color: black;
+    font-size: 20px;
+    line-height: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.spanNumber:hover {
+    color: #2081DE;
+}
+
+/* Мобильная адаптация */
+@media (max-width: 768px) {
+    .bottomMenu {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "logo"
+            "search"
+            "contact"
+            "cart";
+        gap: 30px;
+        padding: 20px;
+    }
+
+    .contact {
+        align-items: center;
+    }
+
+    .cartSection {
+        align-items: center;
+    }
+}

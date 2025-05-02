@@ -1,0 +1,257 @@
+pages/register.tsx
+
+import { useState } from "react";
+
+export default function Register() {
+    const [formData, setFormData] = useState({
+        firstName: "",
+        lastName: "",
+        middleName: "",
+        email: "",
+        password: "",
+        phone: "",
+        address: "",
+        role: "user",
+    });
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+    };
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        const response = await fetch("/api/auth/register", {
+            method: "POST",
+            body: JSON.stringify(formData),
+            headers: { "Content-Type": "application/json" },
+        });
+
+        if (response.ok) alert("User registered successfully");
+        else alert("Registration failed");
+    };
+
+    return (
+        <form onSubmit={handleSubmit}>
+            <input name="firstName" placeholder="Имя" onChange={handleChange} />
+            <input name="lastName" placeholder="Фамилия" onChange={handleChange} />
+            <input name="middleName" placeholder="Отчество" onChange={handleChange} />
+            <input name="email" type="email" placeholder="Email" onChange={handleChange} />
+            <input name="password" type="password" placeholder="Пароль" onChange={handleChange} />
+            <input name="phone" placeholder="Телефон" onChange={handleChange} />
+            <input name="address" placeholder="Адрес" onChange={handleChange} />
+            <button type="submit">Register</button>
+        </form>
+    );
+}
+==============================================================================================
+					pages/api/auth/register.ts
+					--------------------------
+import { NextApiRequest, NextApiResponse } from "next";
+import { connectToDatabase } from "../../lib/mongodb";
+import User from "../../models/User";
+import bcrypt from "bcryptjs";
+import Cors from "cors";
+
+const cors = Cors({ methods: ["POST"] });
+
+// Фикс: Добавляем типизацию для middleware
+function runMiddleware(req: NextApiRequest, res: NextApiResponse, fn: (req: NextApiRequest, res: NextApiResponse, callback: (result: any) => void) => void) {
+    return new Promise<void>((resolve, reject) => {
+        fn(req, res, (result: any) => (result instanceof Error ? reject(result) : resolve()));
+    });
+}
+
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+    if (req.method !== "POST") {
+        return res.status(405).json({ error: "Метод не поддерживается" });
+    }
+
+    try {
+        console.log("До middleware:", req.body);
+
+        await connectToDatabase();
+        await runMiddleware(req, res, cors);
+
+        console.log("После middleware:", req.body);
+        console.log("Тип req.body:", typeof req.body);
+
+        if (typeof req.body === "string") {
+            console.warn("⚠ req.body пришел как строка! Пробую парсить JSON...");
+            try {
+                req.body = JSON.parse(req.body);
+                console.log("✅ JSON успешно распарсен:", req.body);
+            } catch (error) {
+                console.error("❌ Ошибка парсинга JSON:", (error as Error).message);
+                return res.status(400).json({ error: "Ошибка парсинга JSON" });
+            }
+        }
+
+        if (req.headers["content-type"] !== "application/json") {
+            console.error("❌ Ошибка: Неверный Content-Type", req.headers["content-type"]);
+            return res.status(400).json({ error: "Invalid Content-Type" });
+        }
+
+        const { firstName, lastName, middleName, email, password, phone, address, role } = req.body;
+
+        console.log("firstName:", firstName);
+        console.log("lastName:", lastName);
+        console.log("email:", email);
+        console.log("password:", password);
+
+        if (!firstName || !lastName || !email || !password) {
+            console.error("❌ Ошибка: Не все поля заполнены", req.body);
+            return res.status(400).json({ error: "Заполните все обязательные поля" });
+        }
+
+        return res.status(200).json({ message: "Данные получены успешно" });
+
+    } catch (error: any) {
+        console.error("❌ Ошибка в обработчике регистрации:", error);
+        return res.status(500).json({ error: "Внутренняя ошибка сервера", details: error.message });
+    }
+}
+========================================================================================================
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import styles from '@/components/Form.module.css';
+
+const formatPhoneNumber = (input: string) => {
+    const numbers = input.replace(/\D/g, '');
+    let formatted = '+';
+
+    if (numbers.length > 0) formatted += numbers[0];
+    if (numbers.length > 1) formatted += ` (${numbers.slice(1, 4)}`;
+    if (numbers.length > 4) formatted += `) ${numbers.slice(4, 7)}`;
+    if (numbers.length > 7) formatted += `-${numbers.slice(7, 9)}`;
+    if (numbers.length > 9) formatted += `-${numbers.slice(9, 11)}`;
+
+    return formatted;
+};
+
+const RegisterForm = () => {
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [passwordError, setPasswordError] = useState('');
+    const [phone, setPhone] = useState('');
+    const [address, setAddress] = useState('');
+    const [role, setRole] = useState('user');
+    const [errorMessage, setErrorMessage] = useState('');
+    const [successMessage, setSuccessMessage] = useState('');
+    const router = useRouter();
+
+    // Регулярное выражение для пароля
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])[A-Za-z0-9]{6,}$/;
+
+    const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value;
+        setPassword(value);
+
+        // Проверяем пароль и обновляем сообщение об ошибке
+        if (!passwordRegex.test(value)) {
+            setPasswordError(
+                'Пароль должен быть не менее 6 символов, содержать строчные и заглавные буквы, только английские буквы и цифры'
+            );
+        } else {
+            setPasswordError('');
+        }
+    };
+
+    const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setPhone(formatPhoneNumber(e.target.value));
+    };
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+
+        setErrorMessage('');
+        setSuccessMessage('');
+
+        try {
+            const response = await fetch('/api/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    firstName,
+                    lastName,
+                    email,
+                    password,
+                    phone,
+                    address,
+                    role,
+                }),
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                setSuccessMessage(data.message);
+                setTimeout(() => {
+                    router.push('/dashboard');
+                }, 1500);
+            } else {
+                setErrorMessage(data.error || 'Ошибка регистрации');
+            }
+        } catch (error) {
+            setErrorMessage('Ошибка при отправке запроса');
+        }
+    };
+
+    return (
+        <div className={styles['register-container']}>
+            <h1 className={styles.title}>Регистрация</h1>
+            {errorMessage && <p className={styles.error}>{errorMessage}</p>}
+            {successMessage && <p className={styles.success}>{successMessage}</p>}
+
+            <form className={styles['register-form']} onSubmit={handleSubmit}>
+                <label className={styles.label}>Имя :</label>
+                <input type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)} required />
+
+                <label className={styles.label}>Фамилия :</label>
+                <input type="text" value={lastName} onChange={(e) => setLastName(e.target.value)} required />
+
+                <label className={styles.label}>Email:</label>
+                <input type="email" value={email} placeholder="email@yahoo.com" onChange={(e) => setEmail(e.target.value)} required />
+
+                <label className={styles.label}>Пароль:</label>
+                <input
+                    type="password"
+                    value={password}
+                    onChange={handlePasswordChange}
+                    // placeholder="Введите пароль"
+                    required
+                />
+                {passwordError && <p className={styles.error}>{passwordError}</p>}
+
+                <label className={styles.label}>Телефон :</label>
+                <input
+                    type="tel"
+                    value={phone}
+                    onChange={handlePhoneChange}
+                    placeholder="+X (XXX) XXX-XXX-XX"
+                    maxLength={18}
+                    required
+                />
+
+                <label className={styles.label}>Адрес :</label>
+                <input type="text" placeholder="адрес" value={address} onChange={(e) => setAddress(e.target.value)} required />
+
+                <label className={styles.label}>Регистрируетесь как:</label>
+                <select value={role} onChange={(e) => setRole(e.target.value)} required>
+                    <option value="user">Пользователь</option>
+                    <option value="manager">Менеджер</option>
+                    <option value="storekeeper">Кладовщик</option>
+                    <option value="admin">Администратор</option>
+                </select>
+
+                <button className={styles.button} type="submit">Зарегистрироваться</button>
+            </form>
+        </div>
+    );
+};
+
+export default RegisterForm;
+
