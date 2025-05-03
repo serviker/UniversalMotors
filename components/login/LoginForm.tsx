@@ -2,6 +2,7 @@ import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import styles from '@/components/login/LoginForm.module.css';
+import Link from "next/link";
 
 export default function LoginForm() {
     const [formData, setFormData] = useState({ email: "", password: "" });
@@ -64,7 +65,9 @@ export default function LoginForm() {
                 </form>
 
                 <div className={styles.link}>
-                    <p className={styles.loginName}>Если вы не зарегистрированы <a href="/register">Зарегистрироваться</a></p>
+                    <p className={styles.loginName}>
+                        Если вы не зарегистрированы <Link href="/register">Зарегистрироваться</Link>
+                    </p>
                 </div>
             </div>
         </div>

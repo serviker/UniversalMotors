@@ -23,11 +23,13 @@ export function NavMenu({ className }: NavMenuProps) {
 
     return (
         <nav className={cn(styles.navMenu, className)}>
-            {pages.map((page) => (
-                <a href={page.path} key={page.path} className={styles.link}>
-                    {page.title}
-                </a>
-            ))}
+            <div className={styles.container}>
+                {pages.map((page) => (
+                    <a href={page.path} key={page.path} className={styles.link}>
+                        {page.title}
+                    </a>
+                ))}
+            </div>
         </nav>
     );
 }

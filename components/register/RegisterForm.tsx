@@ -87,7 +87,7 @@ const RegisterForm = () => {
                 });
 
                 if (result?.ok) {
-                    router.push('/dashboard');
+                    router.push('/');
                 } else {
                     setErrorMessage('Пользователь зарегистрирован, но не удалось войти');
                 }

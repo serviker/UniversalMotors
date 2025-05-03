@@ -30,15 +30,17 @@ import { getToken } from "next-auth/jwt";
 export async function middleware(req: NextRequest) {
   const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
   const isAuth = !!token;
-  const isLoginPage = req.nextUrl.pathname === "/login";
+  const { pathname } = req.nextUrl;
 
-  // 1. Неавторизован — редирект на /login
-  if (!isAuth && !isLoginPage) {
+  const isAuthPages = pathname === "/login" || pathname === "/register";
+
+  // Неавторизован — можно только на /login и /register
+  if (!isAuth && !isAuthPages) {
     return NextResponse.redirect(new URL("/login", req.url));
   }
 
-  // 2. Авторизован и пытается зайти на /login — редирект на /
-  if (isAuth && isLoginPage) {
+  // Авторизован — не пускаем на /login и /register
+  if (isAuth && isAuthPages) {
     return NextResponse.redirect(new URL("/", req.url));
   }
 
@@ -50,5 +52,6 @@ export const config = {
     '/((?!api|_next/static|_next/image|favicon.ico|.*\\.(?:png|jpg|jpeg|svg|webp|gif)).*)',
   ],
 };
+
 
 
