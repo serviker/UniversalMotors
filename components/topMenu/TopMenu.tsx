@@ -6,10 +6,12 @@ import { useSession } from "next-auth/react";
 import { useState } from "react";
 import styles from '@/components/topMenu/topmenu.module.css';
 import SignOut from "@/components/signOut/SignOut";
+import {Divider} from "@/components/Divider/Divider";
 
 export const TopMenu = () => {
     const router = useRouter();
-    const { data: session, status } = useSession();
+    const { status } = useSession();
+   // const { data: session, status } = useSession();
     const [showSignOut, setShowSignOut] = useState(false);
 
     const handleLogout = () => {
@@ -47,6 +49,7 @@ export const TopMenu = () => {
                 )}
             </div>
             {showSignOut && <SignOut />}
+
         </div>
 
     );

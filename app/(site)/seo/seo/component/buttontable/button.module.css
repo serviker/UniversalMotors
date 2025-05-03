@@ -1,0 +1,74 @@
+.button {
+    flex: 1;
+    margin: 0 0.7rem;
+    position: relative;
+    font-size: 1.4rem;
+    font-weight: 600;
+    padding: 0.6rem 2.0rem;
+    display: inline-block;
+    vertical-align: top;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+    white-space: nowrap;
+    text-decoration: none;
+    color: #fff;
+    outline: 0!important;
+    box-shadow: none;
+    transition: all 150ms ease;
+    border: 1px solid #2081DE;
+}
+.badge{
+    font-size: 14px;
+
+
+}
+.buttontable{
+margin-top: 2px;
+    display: flex;
+    justify-content: space-between;
+}
+
+
+
+
+
+
+.blue{
+    background-color: #2081DE;
+
+}
+.red {
+    background-color: #ed4333;
+
+}
+.blue:hover, .blue:focus {
+    background-color: #1968c5;
+
+}
+.red:hover, .red:focus {
+    background-color: #f25b4d;
+}
+
+.blue_i{
+    background-color: white;
+    color: #2081DE;
+    border-color: #B4D6FE;
+
+}
+.blue_i:hover{
+background-color: #B4D6FE;
+border-color: #B4D6FE;
+color: #2081DE
+}
+
+.blue_sky{
+    background-color: rgba(32, 129, 222, 0.12);
+    color: #167FFC;
+    border-color: rgba(32, 129, 222, 0.12);
+}
+.blue_sky:hover{
+    background-color: #B4D6FE;
+    border-color: #B4D6FE;
+    color: #2081DE
+}

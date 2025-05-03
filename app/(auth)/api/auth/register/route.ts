@@ -1,4 +1,3 @@
-import { NextResponse } from "next/server";
 import bcrypt from 'bcryptjs';
 import { connectToDatabase } from '@lib/mongodb';
 import User from '@models/User';
@@ -37,6 +36,7 @@ export async function POST(req: Request) {
             { status: 200 }
         );
     } catch (error) {
+        console.error("Ошибка при регистрации:", error);
         return new Response(JSON.stringify({ error: 'Ошибка регистрации' }), { status: 500 });
     }
 }

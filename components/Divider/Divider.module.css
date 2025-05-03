@@ -1,0 +1,8 @@
+.hr {
+    width: 100vw;
+    height: 1px;
+    margin-top: 0;
+    background: var(--gray-light);
+    margin-left: calc(-1 * (100vw - 100%)/2); /* смещаем влево */
+    border: none;
+}

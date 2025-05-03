@@ -74,6 +74,7 @@
 .searchImage {
     border: none;
     background: none;
+    padding: 0;
 }
 
 .cartDetails {
@@ -92,17 +93,25 @@
     color: #ED4233;
 }
 
-.cartCount, .cartPrice {
+.cartCount {
+    color: black;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.cartPrice {
     color: black;
 }
 
 .cartButton {
-    padding: 10px 20px;
+    padding: 15px 20px;
     background-color: #2081DE;
     color: white;
+    font-weight: bold;
     border: none;
     border-radius: 3px;
     cursor: pointer;
+    width: 75%;
 }
 
 .span {

@@ -26,6 +26,7 @@ export default function SignOut({
             await signOut({ callbackUrl });
             setSuccess(successMessage);
         } catch (error) {
+            console.error("Ошибка:", error);
             setError(errorMessage);
         } finally {
             setLoading(false);

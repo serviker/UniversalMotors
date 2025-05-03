@@ -4,7 +4,6 @@ import { SessionProvider } from "next-auth/react";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Layout } from "../layout/Layout";
 import "../(site)/globals.css";
-import Head from "next/head";
 
 // export const metadata = {
 //     title: "Universal Motors",

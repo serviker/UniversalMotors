@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { signIn } from 'next-auth/react';
+import Image from 'next/image';
 import styles from '@/components/register/RegisterForm.module.css';
 
 const formatPhoneNumber = (input: string) => {
@@ -95,6 +96,7 @@ const RegisterForm = () => {
                 setErrorMessage(data.error || 'Ошибка регистрации');
             }
         } catch (error) {
+            console.error("Ошибка при отправке запроса:", error);
             setErrorMessage('Ошибка при отправке запроса');
         }
     };
@@ -102,7 +104,12 @@ const RegisterForm = () => {
     return (
         <div className={styles.wrapper}>
             <div className={styles.container}>
-                <img src="/logo.png" alt="Logo" className={styles.logo} />
+                <Image src="/logo.png"
+                       alt="Logo"
+                       className={styles.logo}
+                       width={250}
+                       height={110}
+                />
 
                 {errorMessage && <p className={`${styles.message} ${styles.error}`}>{errorMessage}</p>}
                 {successMessage && <p className={`${styles.message} ${styles.success}`}>{successMessage}</p>}

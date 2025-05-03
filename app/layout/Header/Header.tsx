@@ -3,18 +3,19 @@
 // app/layout/Header.tsx
 import { IHeaderProps } from "./Header.props";
 import {JSX, useEffect} from "react";
-import Logo from '../../../public/logo.svg';
 import { TopMenu } from "@/components/topMenu/TopMenu";
 import BottomMenu from "@/components/bottomMenu/BottomMenu";
 import styles from './Header.module.css';
 import {useSession} from "next-auth/react";
+import {Divider} from "@/components/Divider/Divider";
 
 export const Header = ({ ...props }: IHeaderProps): JSX.Element => {
-    const { data: session, status } = useSession();
+    const { status } = useSession();
+   // const { data: session, status } = useSession();
 
     useEffect(() => {
         if (status === "authenticated") {
-            console.log("Пользователь вошел:", session.user);
+          //  console.log("Пользователь вошел:", session.user);
         }
     }, [status]);
 
@@ -28,6 +29,7 @@ export const Header = ({ ...props }: IHeaderProps): JSX.Element => {
             <div className={styles.topMenuWrapper}>
                 <TopMenu />
             </div>
+            <Divider className={styles.hr} />
 
             {/* Логотип + соцсети */}
             <div className={styles.logoHeaderWrapper}>

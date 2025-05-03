@@ -2,9 +2,7 @@
 import styles from "./BottomMenu.module.css"; // Здесь подключаем новый файл стилей
 import Image from 'next/image';
 import React from "react";
-// import CartPopup from "../cart/CartPopup"; // Компонент для корзины
 import Link from "next/link";
-import CartPopup from "@/components/CartPopup/CartPopup";
 
 const BottomMenu = () => {
     return (
@@ -55,7 +53,8 @@ const BottomMenu = () => {
                 {/* Поиск по сайту */}
                 <form className={styles.search}>
                     <button type="submit" className={styles.searchImage}>
-                        <img src="/social/search.svg" alt="Search Icon" />
+                        <Image src="/social/search.svg" alt="Search Icon" width={16}
+                               height={16}/>
                     </button>
                     <input type="text" placeholder="Поиск по магазину"  />
                 </form>
@@ -66,7 +65,7 @@ const BottomMenu = () => {
                 <span className={styles.spanNumber}>+7 (495) 966-18-86</span>
                 <span className={styles.spanNumber}>8 (800) 200-70-82</span>
                 <Link href="tel:+74959661886" style={{textDecoration: 'none'}}>
-                    <span className={styles.span}>Перезвоните мне</span>
+                    <span className={styles.span} style={{textAlign: 'start'}}>Перезвоните мне</span>
                 </Link>
             </div>
 
@@ -76,8 +75,8 @@ const BottomMenu = () => {
                 <div className={styles.shopCart}>
                     <Image
                         src="/shopping-cart.svg"
-                        width={24}
-                        height={24}
+                        width={21}
+                        height={21}
                         alt="Shopping Cart Icon"
                     />
                     <span className={styles.cartCount}>Карзина (0)</span>
@@ -85,10 +84,10 @@ const BottomMenu = () => {
 
                 {/* Примерный контент корзины */}
                 <div className={styles.cartDetails}>
-                    <span className={styles.cartCount}>0 изделий,</span>
-                    <span className={styles.cartPrice}>0 ₽</span>
+                    <span className={styles.cartPrice}>товаров 0,</span>
+                    <span className={styles.cartPrice}>на сумму 0 ₽</span>
                 </div>
-                <button className={styles.cartButton}>Оформить заказ</button>
+                <button className={styles.cartButton}>Оформить</button>
             </div>
         </div>
     );
