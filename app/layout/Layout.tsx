@@ -12,7 +12,7 @@ export const Layout = ({ children }: ILayoutProps) => {
         <div className={styles.wrapper}>
             <Header className={styles.header} />
             <NavMenu className={styles.navMenu}/>
-            <Sidebar className={styles.sidebar} />
+            {/*<Sidebar className={styles.sidebar} />*/}
             <div className={styles.body}>{children}</div>
             <Footer className={styles.footer} />
         </div>

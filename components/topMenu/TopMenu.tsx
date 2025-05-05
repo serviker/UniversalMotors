@@ -6,17 +6,18 @@ import { useSession } from "next-auth/react";
 import { useState } from "react";
 import styles from '@/components/topMenu/topmenu.module.css';
 import SignOut from "@/components/signOut/SignOut";
-import {Divider} from "@/components/Divider/Divider";
+import { Divider } from "@/components/Divider/Divider";
 
 export const TopMenu = () => {
     const router = useRouter();
-    const { status } = useSession();
-   // const { data: session, status } = useSession();
+    const { data: session, status } = useSession(); // получаем данные о сессии
     const [showSignOut, setShowSignOut] = useState(false);
 
     const handleLogout = () => {
-        setShowSignOut(true); // Отображаем компонент SignOut
+        setShowSignOut(true); // показываем компонент SignOut
     };
+
+    const isAdmin = session?.user?.role === "admin"; // проверяем роль
 
     return (
         <div className={styles.topmenu}>
@@ -37,20 +38,34 @@ export const TopMenu = () => {
 
             <div className={styles.topmenuButtons}>
                 {status === "authenticated" ? (
-                    <button onClick={handleLogout} className={styles.topmenuButton}>
-                        Выйти
-                    </button>
-                ) : (
                     <>
-                        <button onClick={() => router.push("/login")} className={styles.topmenuButton}>
-                            Вход
+                        <button
+                            onClick={() => router.push("/users")}
+                            className={styles.topmenuButton}
+                        >
+                            Менеджмент
                         </button>
+                        <button onClick={handleLogout} className={styles.topmenuButton}>
+                            Выйти
+                        </button>
+
+                        {isAdmin && (
+                            <button
+                                onClick={() => router.push("/seo")}
+                                className={styles.seoButton}
+                            >
+                                SEO
+                            </button>
+                        )}
                     </>
+                ) : (
+                    <button onClick={() => router.push("/login")} className={styles.topmenuButton}>
+                        Вход
+                    </button>
                 )}
             </div>
+
             {showSignOut && <SignOut />}
-
         </div>
-
     );
 };

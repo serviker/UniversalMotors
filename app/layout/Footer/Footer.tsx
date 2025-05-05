@@ -9,7 +9,7 @@ export const Footer = ({className, ...props}: IFooterProps): JSX.Element=> {
       <footer className={cn(className, styles.footer)} {...props}>
           <div className={styles.footerContent}>
                   <div className={styles.footerColumns}>
-                      <div>
+                      <div  className={styles.footerFirstColumns}>
                           <h4>О компании</h4>
                           <ul>
                               <li>Арендодателям</li>

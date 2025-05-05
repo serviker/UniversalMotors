@@ -32,7 +32,6 @@ export default function SiteLayout({
                 <link rel="icon" href="/umico.png" />
             </head>
             <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-                {/* Убираем SessionWrapper */}
                 <SessionProvider>
                     <Layout>{children}</Layout>
                 </SessionProvider>

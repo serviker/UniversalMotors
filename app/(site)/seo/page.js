@@ -14,7 +14,7 @@ import MetaErrorT from "./metaTagDT";
 import MetaErrorD from "./metaTagDD";
 import MetaErrorK from "./metaTagDK";
 import PageN from "./paheN";
-import TextCart from  "./textcart";
+import TextCart from "./textcart";
 import TextCat from "./textcat";
 import TextM from "./textM";
 import axios from "axios";

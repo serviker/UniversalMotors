@@ -57,6 +57,20 @@
     width: 100%;
 }
 
+.seoButton {
+    color: #ED4233;
+    border: none;
+    background: none;
+    font-weight: bold;
+}
+
+.seoButton:hover {
+    color: #fff;
+    background-color: #ED4233;
+    height: 100%;
+    width: 100%;
+}
+
 /* Кнопки */
 .topmenuButtons {
     display: flex;

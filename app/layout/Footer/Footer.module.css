@@ -1,5 +1,5 @@
 .footer {
-    background: #002947;
+    background: #172A3F;
     color: var(--white);
     width: 100%;
 }
@@ -30,7 +30,7 @@
     grid-template-columns: repeat(5, 1fr);
     gap: 40px;
     padding: 30px;
-    background-color: #002947; /* или другой фон */
+    background-color: #172A3F; /* или другой фон */
     color: white;
 }
 
@@ -63,6 +63,10 @@
 .footerColumns li {
     font-size: 14px;
     line-height: 26px;
+}
+
+.footerLastColumns {
+    text-align: start;
 }
 
 .footerLastColumns {

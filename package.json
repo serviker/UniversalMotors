@@ -8,13 +8,13 @@
     "start": "next start",
     "lint": "next lint",
     "tailwindcss:init": "tailwindcss init",
-      "zip": "powershell -ExecutionPolicy Bypass -File ./zip-project.ps1"
-
+    "zip": "powershell -ExecutionPolicy Bypass -File ./zip-project.ps1"
   },
   "dependencies": {
     "@headlessui/react": "^2.2.1",
     "axios": "^1.8.3",
     "bcryptjs": "^3.0.2",
+    "bootstrap": "^5.3.5",
     "classnames": "^2.5.1",
     "clsx": "^2.1.1",
     "cors": "^2.8.5",
@@ -26,6 +26,7 @@
     "next": "15.2.2",
     "next-auth": "^4.24.11",
     "react": "^19.0.0",
+    "react-bootstrap": "^2.10.9",
     "react-dom": "^19.0.0"
   },
   "devDependencies": {
