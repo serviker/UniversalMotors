@@ -39,29 +39,50 @@ export const TopMenu = () => {
             <div className={styles.topmenuButtons}>
                 {status === "authenticated" ? (
                     <>
-                        <button
-                            onClick={() => router.push("/users")}
-                            className={styles.topmenuButton}
-                        >
-                            Менеджмент
-                        </button>
+
                         <button onClick={handleLogout} className={styles.topmenuButton}>
                             Выйти
                         </button>
 
+                        {session?.user?.role === "storekeeper" && (
+                            <button
+                                onClick={() => router.push("/warehouse")}
+                                className={styles.topmenuButton}
+                            >
+                                Склад
+                            </button>
+                        )}
+
+                        {(session?.user?.role === "manager") && (
+                            <button
+                                onClick={() => router.push("/users")}
+                                className={styles.topmenuButton}
+                            >
+                                Менеджмент
+                            </button>
+                        )}
+
                         {isAdmin && (
+                            <>
+                            <button
+                                onClick={() => router.push("/users")}
+                                className={styles.topmenuButton}
+                            >
+                                Менеджмент
+                            </button>
                             <button
                                 onClick={() => router.push("/seo")}
                                 className={styles.seoButton}
                             >
                                 SEO
                             </button>
+                            </>
                         )}
                     </>
                 ) : (
-                    <button onClick={() => router.push("/login")} className={styles.topmenuButton}>
-                        Вход
-                    </button>
+                        <button onClick={() => router.push("/login")} className={styles.topmenuButton}>
+                            Вход
+                        </button>
                 )}
             </div>
 

@@ -13,6 +13,15 @@
     color: #333333;
 }
 
+.noSidebar {
+    grid-template-columns: auto minmax(320px, 1400px) auto;
+    grid-template-areas:
+        ". header ."
+        ". nav ."
+        ". body ."
+        "footer footer footer";
+}
+
 .header {
     grid-area: header;
     display: block;
@@ -20,7 +29,7 @@
 }
 .body {
     grid-area: body;
-    border: 1px solid darkslategray;
+    /*border: 1px solid darkslategray;*/
 }
 .navMenu {
     grid-area: nav;
@@ -43,7 +52,7 @@
 @media (max-width: 765px) {
     .wrapper {
         grid-template-columns: minmax(320px, 1fr);
-        grid-template-rows: auto 1fr auto;
+        grid-template-rows: auto auto 1fr auto;
         grid-template-areas:
     "header"
     "nav"

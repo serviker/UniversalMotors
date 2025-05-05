@@ -1,3 +1,4 @@
+// components/UserList
 "use client";
 
 import { useState, useEffect } from "react";
@@ -14,12 +15,14 @@ interface User {
     createdAt: string;
 }
 
-const roleFilters = {
+const roleFilters: Record<"users" | "managers" | "storekeepers" | "admins" | "all", string[]> = {
     users: ["user"],
     managers: ["manager"],
     storekeepers: ["storekeeper"],
-    admins: ["admin"]
+    admins: ["admin"],
+    all: []
 };
+
 
 export default function UsersList({ roleFilter }: { roleFilter: keyof typeof roleFilters }) {
     const [users, setUsers] = useState<User[]>([]);
@@ -35,10 +38,14 @@ export default function UsersList({ roleFilter }: { roleFilter: keyof typeof rol
                 return res.json();
             })
             .then((data) => {
-                const filteredUsers = data.filter((user: User) => roleFilters[roleFilter].includes(user.role));
+                const roles: string[]  = roleFilters[roleFilter];
+                const filteredUsers = roles.length === 0
+                    ? data // если roles пустой — возвращаем всех
+                    : data.filter((user: User) => roles.includes(user.role));
                 setUsers(filteredUsers);
                 setLoading(false);
             })
+
             .catch((error) => {
                 console.error(error);
                 setError(error.message);

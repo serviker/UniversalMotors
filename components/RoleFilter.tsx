@@ -1,10 +1,13 @@
+// components/RoleFilter
 import { useState } from "react";
 
 const roleFilters = {
+    all: "Все пользователи",
     users: "Пользователи",
     managers: "Менеджеры",
     storekeepers: "Кладовщики",
-    admins: "Админы"
+    admins: "Админы",
+
 };
 
 interface RoleFilterProps {

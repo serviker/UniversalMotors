@@ -1,13 +1,5 @@
-// /app/users/page.tsx
-// import UsersList from "@/components/UsersList";
-//
-// export default function UsersPage() {
-//     return (
-//         <div>
-//             <UsersList roleFilter="users"/>
-//         </div>
-//     );
-// }
+// components/UserList
+
 'use client'
 
 import { useState } from "react";
@@ -15,7 +7,7 @@ import UsersList from "@/components/UsersList";
 import RoleFilter from "@/components/RoleFilter";
 
 export default function UsersPage() {
-    const [roleFilter, setRoleFilter] = useState<"users" | "managers" | "storekeepers" | "admins">("users");
+    const [roleFilter, setRoleFilter] = useState<"users" | "managers" | "storekeepers" | "admins" | "all">("users");
 
     return (
         <div style={{ padding: "20px" }}>
