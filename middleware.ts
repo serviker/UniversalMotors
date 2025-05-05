@@ -34,13 +34,31 @@ export async function middleware(req: NextRequest) {
 
   const isAuthPages = pathname === "/login" || pathname === "/register";
 
-  // Неавторизован — можно только на /login и /register
+  // Страницы, доступные только определённым ролям
+  const roleAccessMap: Record<string, string[]> = {
+    admin: ["/seo", "/users"],
+    manager: ["/users"],
+    warehouse: ["/warehouse"],
+  };
+
   if (!isAuth && !isAuthPages) {
     return NextResponse.redirect(new URL("/login", req.url));
   }
 
-  // Авторизован — не пускаем на /login и /register
   if (isAuth && isAuthPages) {
+    return NextResponse.redirect(new URL("/", req.url));
+  }
+
+  // 🔐 Проверка по ролям
+  const role = token?.role;
+
+  const hasAccess = Object.entries(roleAccessMap).some(([allowedRole, paths]) =>
+      role === allowedRole && paths.includes(pathname)
+  );
+
+  const isProtectedPath = Object.values(roleAccessMap).flat().includes(pathname);
+
+  if (isProtectedPath && !hasAccess) {
     return NextResponse.redirect(new URL("/", req.url));
   }
 

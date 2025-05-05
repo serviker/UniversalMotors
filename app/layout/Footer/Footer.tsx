@@ -1,6 +1,6 @@
 import {IFooterProps} from "./Footer.props";
 import styles from "./Footer.module.css";
-import {JSX} from "react";
+import React, {JSX} from "react";
 import cn from "classnames";
 import Image from "next/image";
 
@@ -8,9 +8,19 @@ export const Footer = ({className, ...props}: IFooterProps): JSX.Element=> {
   return(
       <footer className={cn(className, styles.footer)} {...props}>
           <div className={styles.footerContent}>
-                  <div className={styles.footerColumns}>
-                      <div  className={styles.footerFirstColumns}>
-                          <h4>О компании</h4>
+              <div className={styles.footerTop}>
+                  <form className={styles.search}>
+                      <button type="submit" className={styles.searchImage}>
+                          <Image src="/social/search.svg" alt="Search Icon" width={16}
+                                 height={16}/>
+                      </button>
+                      <input type="text" placeholder="Поиск по магазину"  />
+                  </form>
+                  <span className={styles.span}>Например: Велосипед</span>
+              </div>
+              <div className={styles.footerColumns}>
+                  <div  className={styles.footerFirstColumns}>
+                      <h4>О компании</h4>
                           <ul>
                               <li>Арендодателям</li>
                               <li>Благотворительность</li>
@@ -21,9 +31,9 @@ export const Footer = ({className, ...props}: IFooterProps): JSX.Element=> {
                               <li>Пресс-центр</li>
                               <li>Социальные проекты</li>
                           </ul>
-                      </div>
-                      <div>
-                          <h4>Интернет-магазин</h4>
+                  </div>
+                  <div>
+                      <h4>Интернет-магазин</h4>
                           <ul>
                               <li>Условия продажи</li>
                               <li>Условия возврата</li>
@@ -33,9 +43,9 @@ export const Footer = ({className, ...props}: IFooterProps): JSX.Element=> {
                               <li>Оплата</li>
                               <li>Доставка</li>
                           </ul>
-                      </div>
-                      <div>
-                          <h4>Помощь покупателю</h4>
+                  </div>
+                  <div>
+                      <h4>Помощь покупателю</h4>
                           <ul>
                               <li>Политика конфиденциальности</li>
                               <li>Адреса сервисных центров</li>
@@ -43,17 +53,17 @@ export const Footer = ({className, ...props}: IFooterProps): JSX.Element=> {
                               <li>Обмен, возврат и ремонт</li>
                               <li>Статус ремонта</li>
                           </ul>
-                      </div>
-                      <div className={styles.footerLastColumns}>
-                          <h4>Наши реквизиты:</h4>
+                  </div>
+                  <div className={styles.footerLastColumns}>
+                      <h4>Наши реквизиты:</h4>
                           <ul>
                               <li>ООО «Пси-Депо»</li>
                               <li>ИНН 7715910057</li>
                               <li>КПП 772801001</li>
                               <li>ОГРН 1127746206213</li>
                           </ul>
-                      </div>
                   </div>
+              </div>
               <div className={styles.bottom}>
                   <div className={styles.p}>
                       <p>

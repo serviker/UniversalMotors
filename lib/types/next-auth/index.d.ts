@@ -1,4 +1,4 @@
-// lib/types/next-auth.d.ts
+// lib/types/next-auth/index.d.ts
 // import { IUser } from '../models/User'; // Импортируем ваш интерфейс IUser
 //
 // declare module 'next-auth' {

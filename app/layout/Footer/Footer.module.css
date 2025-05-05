@@ -16,12 +16,67 @@
 /*}*/
 
 .footerContent {
-    max-width: 1320px;
+    max-width: 1400px;
     margin: 0 auto;
-    padding: 25px 30px;
+    padding: 25px;
     display: flex;
     flex-direction: column;
     gap: 20px;
+    color: white;
+    border: 1px solid #bdbfbf;
+}
+
+.footerTop {
+    display: grid;
+    width: 100%;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px;
+
+}
+
+.span {
+    color: #fff;
+    font-size: 16px;
+    line-height: 22px;
+    text-decoration: underline dotted;
+    text-underline-offset: 3px;
+    text-decoration-thickness: 2px;
+    cursor: pointer;
+}
+
+.search {
+    display: flex;
+    align-items: center;
+    background-color: #F0F0F0;
+    border-radius: 5px;
+    height: 30px;
+    padding: 5px 15px;
+}
+
+.search input {
+    border: none;
+    outline: none;
+    padding: 5px 10px;
+    border-radius: 10px;
+    background-color: #F0F0F0;
+    font-size: 14px;
+    margin-left: 5px;
+    width: 100%;
+}
+
+.searchImage {
+    border: none;
+    background: none;
+    padding: 0;
+}
+
+/* Линия под меню */
+.footerTop::after {
+    content: "";
+    position: absolute; /* изменено на fixed */
+    top: 40px;
+    height: 1px;
+    background-color: #bfcad6;
 }
 
 .footerColumns {
@@ -29,9 +84,7 @@
     width: 100%;
     grid-template-columns: repeat(5, 1fr);
     gap: 40px;
-    padding: 30px;
-    background-color: #172A3F; /* или другой фон */
-    color: white;
+
 }
 
 .footerColumns > div:nth-child(1) {

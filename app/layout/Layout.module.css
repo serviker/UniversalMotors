@@ -14,7 +14,7 @@
 }
 
 .noSidebar {
-    grid-template-columns: auto minmax(320px, 1400px) auto;
+    grid-template-columns: auto minmax(550px, 1450px) auto;
     grid-template-areas:
         ". header ."
         ". nav ."
@@ -26,17 +26,18 @@
     grid-area: header;
     display: block;
     text-align: center;
+    border: 1px solid darkslategray;
 }
 .body {
     grid-area: body;
-    /*border: 1px solid darkslategray;*/
+    border: 1px solid darkslategray;
 }
 .navMenu {
     grid-area: nav;
     width: 100%;
     grid-column: 1 / -1;
     height: 40px;
-    min-height: 60px; /* <== FIX */
+    min-height: 60px;
     padding: 0;
 }
 
@@ -47,6 +48,7 @@
 }
 .footer {
     grid-area: footer;
+    display: block;
 }
 
 @media (max-width: 765px) {

@@ -1,3 +1,4 @@
+// app/(auth)/api/auth/[nextauth]/authOptions.ts
 import CredentialsProvider from "next-auth/providers/credentials";
 import { connectToDatabase } from "@lib/mongodb";
 import User from "@models/User";
