@@ -1,19 +1,8 @@
-// components/UserList
 "use client";
 
 import { useState, useEffect } from "react";
-
-interface User {
-    _id: string;
-    firstName: string;
-    lastName: string;
-    middleName: string;
-    email: string;
-    phone: string;
-    address: string;
-    role: string;
-    createdAt: string;
-}
+import { useSession } from "next-auth/react"; // Добавь
+import { UsersListProps, User } from "./UsersList.props";
 
 const roleFilters: Record<"users" | "managers" | "storekeepers" | "admins" | "all", string[]> = {
     users: ["user"],
@@ -23,8 +12,12 @@ const roleFilters: Record<"users" | "managers" | "storekeepers" | "admins" | "al
     all: []
 };
 
+const availableRoles = ["user", "manager", "storekeeper", "admin"];
 
-export default function UsersList({ roleFilter }: { roleFilter: keyof typeof roleFilters }) {
+export default function UsersList({ roleFilter }: UsersListProps) {
+    const { data: session } = useSession(); // <-- Получаем сессию здесь
+    const userRole = session?.user?.role;   // <-- Теперь role точно будет доступен
+
     const [users, setUsers] = useState<User[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
@@ -32,20 +25,17 @@ export default function UsersList({ roleFilter }: { roleFilter: keyof typeof rol
     useEffect(() => {
         fetch("/api/auth/users")
             .then((res) => {
-                if (!res.ok) {
-                    throw new Error("Ошибка загрузки пользователей");
-                }
+                if (!res.ok) throw new Error("Ошибка загрузки пользователей");
                 return res.json();
             })
             .then((data) => {
-                const roles: string[]  = roleFilters[roleFilter];
+                const roles: string[] = roleFilters[roleFilter];
                 const filteredUsers = roles.length === 0
-                    ? data // если roles пустой — возвращаем всех
+                    ? data
                     : data.filter((user: User) => roles.includes(user.role));
                 setUsers(filteredUsers);
                 setLoading(false);
             })
-
             .catch((error) => {
                 console.error(error);
                 setError(error.message);
@@ -53,8 +43,35 @@ export default function UsersList({ roleFilter }: { roleFilter: keyof typeof rol
             });
     }, [roleFilter]);
 
+    const handleRoleChange = (userId: string, newRole: string) => {
+        fetch(`/api/auth/users/${userId}/updateRole`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ role: newRole }),
+        })
+            .then((res) => {
+                if (!res.ok) throw new Error("Ошибка изменения роли");
+                return res.json();
+            })
+            .then(() => {
+                setUsers((prevUsers) =>
+                    prevUsers.map((user) =>
+                        user._id === userId ? { ...user, role: newRole } : user
+                    )
+                );
+            })
+            .catch((error) => {
+                console.error(error);
+                setError(error.message);
+            });
+    };
+
     if (loading) return <p>Загрузка пользователей...</p>;
     if (error) return <p>Ошибка: {error}</p>;
+
+    //console.log("userRole:", userRole);
 
     return (
         <div style={{ padding: "20px" }}>
@@ -70,6 +87,7 @@ export default function UsersList({ roleFilter }: { roleFilter: keyof typeof rol
                     <th style={styles.th}>Телефон</th>
                     <th style={styles.th}>Адрес</th>
                     <th style={styles.th}>Дата регистрации</th>
+                    {userRole === "admin" && <th style={styles.th}>Изменить роль</th>}
                 </tr>
                 </thead>
                 <tbody>
@@ -81,6 +99,21 @@ export default function UsersList({ roleFilter }: { roleFilter: keyof typeof rol
                         <td style={styles.td}>{user.phone}</td>
                         <td style={styles.td}>{user.address}</td>
                         <td style={styles.td}>{new Date(user.createdAt).toLocaleDateString("ru-RU")}</td>
+                        {userRole === "admin" && (
+                            <td style={styles.td}>
+                                <select
+                                    value={user.role}
+                                    onChange={(e) => handleRoleChange(user._id, e.target.value)}
+                                    style={{ padding: "5px", borderRadius: "4px" }}
+                                >
+                                    {availableRoles.map((role) => (
+                                        <option key={role} value={role}>
+                                            {role.charAt(0).toUpperCase() + role.slice(1)}
+                                        </option>
+                                    ))}
+                                </select>
+                            </td>
+                        )}
                     </tr>
                 ))}
                 </tbody>

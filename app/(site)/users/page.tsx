@@ -3,7 +3,7 @@
 'use client'
 
 import { useState } from "react";
-import UsersList from "@/components/UsersList";
+import UsersList from "@/components/usersList/UsersList";
 import RoleFilter from "@/components/RoleFilter";
 
 export default function UsersPage() {

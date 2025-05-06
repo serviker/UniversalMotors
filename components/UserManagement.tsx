@@ -1,21 +1,36 @@
-// components/UserManagement
+// UserManagement.tsx
+
 "use client";
 
-import { useState } from "react";
-import UsersList from "./UsersList";
+import { useSession } from "next-auth/react";
+import UsersList from "./usersList/UsersList";
 import RoleFilter from "./RoleFilter";
+import { useState, useEffect } from "react";
 
-export default function UserManagement() {
-    const [roleFilter, setRoleFilter] = useState<"users" | "managers" | "storekeepers" | "admins" | "all" >("users");
+interface Props {
+    userRole: string;
+}
+
+export default function UserManagement({ userRole }: Props) {
+    const { data: session, status } = useSession();
+
+    const [roleFilter, setRoleFilter] = useState<"users" | "managers" | "storekeepers" | "admins" | "all">("users");
+
+    useEffect(() => {
+        console.log("🧪 Статус сессии:", status);
+        console.log("🧪 session:", session);
+        console.log("🧪 userRole from props:", userRole);
+    }, [session, status]);
+
+    if (status === "loading") {
+        return <p>Загрузка сессии...</p>;
+    }
 
     return (
-        <div style={{ padding: "20px"}}>
-
-            {/* Используем новый компонент для фильтрации */}
+        <div style={{ padding: "20px" }}>
+            <p>Роль из пропсов: {userRole}</p>
             <RoleFilter onRoleChange={setRoleFilter} />
-
-            {/* Отображение списка пользователей */}
-            <UsersList roleFilter={roleFilter} />
+            <UsersList roleFilter={roleFilter} userRole={userRole} />
         </div>
     );
 }

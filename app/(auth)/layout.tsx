@@ -1,5 +1,5 @@
 // app/layout.tsx
-import { SessionProvider } from "next-auth/react"; // Импортируем SessionProvider
+import { Providers } from "../providers";
 import { Geist, Geist_Mono } from "next/font/google";
 
 // Пример перемещения metadata в серверный компонент, чтобы избежать ошибки с "use client"
@@ -29,17 +29,8 @@ export default function RootLayout({
             <body
                 className={`${geistSans.variable} ${geistMono.variable} antialiased`}
             >
-                <SessionWrapper>{children}</SessionWrapper>
+                <Providers>{children}</Providers>
             </body>
         </html>
     );
-}
-
-// Создаём компонент для обёртки на клиенте
-function SessionWrapper({ children }: { children: React.ReactNode }) {
-    if (typeof window === "undefined") {
-        return <>{children}</>; // Серверная часть не использует SessionProvider
-    }
-
-    return <SessionProvider>{children}</SessionProvider>;
 }
