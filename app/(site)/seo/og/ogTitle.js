@@ -26,7 +26,7 @@ const OgTitle = (props) => {
         };
 
         fetchData(currentPage);
-    }, [currentPage,category]);
+    }, [currentPage,category, tag]);
 
     const handlePageClick = (page) => {
         setCurrentPage(page);

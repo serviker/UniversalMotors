@@ -15,7 +15,7 @@ export async function middleware(req: NextRequest) {
   const roleAccessMap: Record<string, string[]> = {
     admin: ["/seo", "/users"],
     manager: ["/users"],
-    warehouse: ["/warehouse"],
+    storekeeper: ["/warehouse"],
   };
 
   // 🔁 Если юзер не авторизован и пытается зайти не на /login или /register — редиректим на /login

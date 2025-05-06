@@ -1,7 +1,7 @@
 "use client";
 import { useSession } from "next-auth/react";
 
-const Profile = () => {
+const Warehouse = () => {
     const { data: session } = useSession();
 
     if (!session) {
@@ -9,13 +9,13 @@ const Profile = () => {
     }
 
     return (
-        <div>
-            <h1>Добро пожаловать, {session.user.firstName} {session.user.lastName}</h1>
-            <p>Роль: {session.user.role}</p>
+        <div style={{ textAlign: "center" }}>
+            <h1> Добро пожаловать на Склад</h1>
+            <p>{session.user.role}, {session.user.firstName} {session.user.lastName}</p>
             <p>Email: {session.user.email}</p>
             <p>Телефон: {session.user.phone}</p>
         </div>
     );
 };
 
-export default Profile;
+export default Warehouse;

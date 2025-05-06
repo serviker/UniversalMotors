@@ -34,14 +34,26 @@
 
 }
 
+.searchWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.spanFirst {
+    color: #fff;
+    font-size: 14px;
+    line-height: 22px;
+}
+
 .span {
     color: #fff;
-    font-size: 16px;
+    font-size: 14px;
     line-height: 22px;
     text-decoration: underline dotted;
     text-underline-offset: 3px;
     text-decoration-thickness: 2px;
-    cursor: pointer;
+    /*cursor: pointer;*/
 }
 
 .search {
@@ -68,6 +80,17 @@
     border: none;
     background: none;
     padding: 0;
+}
+
+.socWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.socSeti {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
 }
 
 /* Линия под меню */

@@ -2,7 +2,7 @@ export const dynamic = "force-dynamic";
 
 import { getServerSession } from "next-auth";
 import { authOptions } from '@lib/authOptions';
-import UserManagement from "@/components/UserManagement";
+import UserManagement from "@/components/userManagement/UserManagement";
 
 export default async function AdminPage() {
     const session = await getServerSession(authOptions);

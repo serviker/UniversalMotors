@@ -9,14 +9,27 @@ export const Footer = ({className, ...props}: IFooterProps): JSX.Element=> {
       <footer className={cn(className, styles.footer)} {...props}>
           <div className={styles.footerContent}>
               <div className={styles.footerTop}>
-                  <form className={styles.search}>
-                      <button type="submit" className={styles.searchImage}>
-                          <Image src="/social/search.svg" alt="Search Icon" width={16}
-                                 height={16}/>
-                      </button>
-                      <input type="text" placeholder="Поиск по магазину"  />
-                  </form>
-                  <span className={styles.span}>Например: Велосипед</span>
+                  <div className={styles.searchWrapper}>
+                      <form className={styles.search}>
+                          <button type="submit" className={styles.searchImage}>
+                              <Image src="/social/search.svg" alt="Search Icon" width={16}
+                                     height={16}/>
+                          </button>
+                          <input type="text" placeholder="Поиск по магазину"  />
+                      </form>
+                      <div>
+                          <span className={styles.spanFirst}>Например: </span>
+                          <span className={styles.span}> Велосипед</span>
+                      </div>
+                  </div>
+                  <div className={styles.socWrapper}>
+                      <div className={styles.socSeti}>
+                          <Image src='/social/vk.svg' alt='vk' width={40} height={40}/>
+                          <Image src='/social/youtube.svg' alt='vk' width={40} height={40}/>
+                          <Image src='/social/inst.svg' alt='vk' width={40} height={40}/>
+                      </div>
+                      <span className={styles.spanFirst}>Мы в соц. сетях</span>
+                  </div>
               </div>
               <div className={styles.footerColumns}>
                   <div  className={styles.footerFirstColumns}>

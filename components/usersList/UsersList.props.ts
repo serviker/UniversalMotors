@@ -1,4 +1,4 @@
-// UsersList.props.ts
+// Warehouse.props.ts
 export interface User {
     _id: string;
     firstName: string;

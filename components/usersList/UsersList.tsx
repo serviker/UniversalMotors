@@ -75,7 +75,7 @@ export default function UsersList({ roleFilter }: UsersListProps) {
 
     return (
         <div style={{ padding: "20px" }}>
-            <h2 style={{ color: "black" }}>
+            <h2 style={{ color: "black", textAlign: "center" }}>
                 {roleFilter === "users" ? "Список пользователей" : `Список ${roleFilter}`}
             </h2>
             <table style={{ borderCollapse: "collapse", width: "100%", border: "1px solid black", color: "white" }}>

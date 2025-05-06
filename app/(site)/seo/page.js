@@ -17,7 +17,6 @@ import PageN from "./paheN";
 import TextCart from "./textcart";
 import TextCat from "./textcat";
 import TextM from "./textM";
-import axios from "axios";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import MenuButton from "./component/menuButton";
 import Buttontable from "./component/buttontable/buttontable";
@@ -134,7 +133,6 @@ function Seo2() {
     const [selectedCategory, setSelectedCategory] = useState('');
     const [showButtons, setShowButtons] = useState(false);
     const [updateTrigger, setUpdateTrigger] = useState(0);
-    const [isButtonDisabled, setIsButtonDisabled] = useState(false);
     // Функция для получения данных с сервера
     useEffect(() => {
         const fetchData = async () => {
@@ -192,7 +190,7 @@ function Seo2() {
             setShowButtons(true);
         }
     };
-    const handleupdate = async () => {
+   /* const handleupdate = async () => {
         try {
             setIsButtonDisabled(true); // Отключаем кнопку
             await axios.get(`http://185.25.10.105:5002/seogetlinksdelet`);
@@ -205,7 +203,7 @@ function Seo2() {
             console.error('Ошибка при перепроверке ссылки: ', error);
             setIsButtonDisabled(false); // В случае ошибки также включаем кнопку обратно
         }
-    };
+    };*/
 
 
     const toggleSitemap = (component) => {
